@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/main.css') }}">
 </head>
 <body>
     <header>
@@ -39,9 +39,6 @@
             </div>
         </nav>
     </header>
-    <main>
-        {% block content %}{% endblock %}
-    </main>
     <footer>
     </footer>
 </body>

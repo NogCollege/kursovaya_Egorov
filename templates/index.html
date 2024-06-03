@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Доставка Еды в Ногинске</title>
-    <link rel="stylesheet" href="style/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/main.css') }}">
 </head>
 <body>
     <header>
@@ -32,7 +32,11 @@
                     <li><a href="#menu">Меню</a></li>
                 </ul>
                 <div class="auth-cart">
-                    <a href="/login" class="auth-btn">Войти</a>
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('logout') }}" class="auth-btn">Выйти</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="auth-btn">Войти</a>
+                    {% endif %}
                     <a href="cart.html" class="cart-btn">Корзина</a>
                 </div>
             </div>
