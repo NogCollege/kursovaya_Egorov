@@ -99,6 +99,7 @@ body {
   background-color: #d00430;
   color: #ffffff;
   border: none;
+  text-decoration: none;
   padding: 0.5rem 1rem;
   margin-left: 1rem;
   cursor: pointer;

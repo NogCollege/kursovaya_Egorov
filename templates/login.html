@@ -1,0 +1,13 @@
+{% block content %}
+<div class="container auth-container">
+    <h2>Авторизация</h2>
+    <form action="{{ url_for('login') }}" method="post" class="auth-form">
+        <label for="username">Имя пользователя</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Пароль</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit" class="auth-btn">Войти</button>
+    </form>
+    <p>Нет аккаунта? <a href="{{ url_for('register') }}">Регистрация</a></p>
+</div>
+{% endblock %}
