@@ -24,34 +24,20 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-.top-header .container .top-header-links {
-  list-style: none;
-  display: flex;
-}
-.top-header .container .top-header-links li {
-  margin: 0 1rem;
-}
-.top-header .container .top-header-links li a {
-  color: #333;
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-.top-header .container .top-header-links li a:hover {
-  text-decoration: underline;
-}
-.top-header .container .top-header-contact {
+.top-header .top-header-contact {
   display: flex;
   align-items: center;
+  justify-content: center;
+  margin-left: 28rem;
 }
-.top-header .container .top-header-contact span {
+.top-header .top-header-contact span {
   margin-left: 1rem;
   color: #333;
   font-size: 0.9rem;
   font-weight: 500;
 }
-.top-header .container .top-header-contact .every {
-  color: magenta;
+.top-header .top-header-contact .every {
+  color: #F85E00;
 }
 
 .navbar {
@@ -207,26 +193,4 @@ footer .footer-container .footer-column ul li a:hover {
 footer p {
   font-size: 1rem;
   font-weight: 500;
-}
-.flash-messages {
-  margin: 20px 0;
-}
-
-.flash-message {
-  padding: 15px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-}
-
-.flash-message.success {
-  color: #155724;
-  background-color: #d4edda;
-  border-color: #c3e6cb;
-}
-
-.flash-message.error {
-  color: #721c24;
-  background-color: #f8d7da;
-  border-color: #f5c6cb;
 }/*# sourceMappingURL=main.css.map */

@@ -11,11 +11,6 @@
     <header>
         <div class="top-header">
             <div class="container">
-                <ul class="top-header-links">
-                    <li><a href="#business">Покупайте для бизнеса</a></li>
-                    <li><a href="#suppliers">Для производителей</a></li>
-                    <li><a href="#restaurants">Ресторанам</a></li>
-                </ul>
                 <div class="top-header-contact">
                     <span>+7 800 222-11-00</span>
                     <span class="every">Круглосуточно</span>
@@ -29,6 +24,7 @@
                 <a href="#" class="logo">КебабХаус</a>
                 <ul class="nav-links">
                     <li><a href="#home">Главная</a></li>
+                    <li><a href="{{url_for('courier_panel')}}">Для курьеров</a></li>
                     <li><a href="#menu">Меню</a></li>
                 </ul>
                 <div class="auth-cart">
@@ -37,7 +33,7 @@
                     {% else %}
                         <a href="{{ url_for('login') }}" class="auth-btn">Войти</a>
                     {% endif %}
-                    <a href="cart.html" class="cart-btn">Корзина</a>
+                    <a href="{{ url_for('cart') }}" class="cart-btn">Корзина</a>
                 </div>
             </div>
         </nav>

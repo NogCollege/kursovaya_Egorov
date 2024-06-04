@@ -1,23 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel.</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/panel.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/cart.css') }}">
 </head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="promo.html">Промокоды</a></li>
-                <li><a href="sales.html">Акции</a></li>
-                <li><a href="orders.html">Заказы</a></li>
-                <li><a href="couiriers.html">Курьеры</a></li>
+{% extends "output.html" %}
+{% block content %}
+<div class="admin-container">
+    <h1>Добро пожаловать, {{ current_user.username }}.</h1>
+    <div class="admin-sections">
+        <div class="admin-section">
+            <h2>Акции</h2>
+            <br>
+            <form action="{{ url_for('create_delete_sale') }}" method="post">
+                <input type="text" name="promotion_name" placeholder="Название акции" required>
+                <textarea name="promotion_description" placeholder="Описание акции" required></textarea>
+                <button type="submit" name="action3" value="create">Добавить акцию</button>
+                <button type="submit" name="action3" value="delete">Удалиить акцию</button>
+            </form>
+            <ul class="promotion-list">
+                {% for name, desc in sales %}
+                <li>Акция: {{ name }}. Описание: {{ desc }}.</li>
+            {% endfor %}
             </ul>
-        </nav>
-    </header>
-    
-</body>
-</html>
+        </div>
+        <div class="admin-section">
+            <h2>Промокоды</h2>
+            <br>
+            <form action="{{ url_for('create_delete_promocode') }}" method="post">
+                <input type="text" name="promocode" placeholder="Промокод" required>
+                <input type="number" name="discount" placeholder="Скидка (%)" required>
+                <button type="submit" name="action2" value="create">Добавить промокод</button>
+                <button type="submit" name="action2" value="delete">Удалить промокод</button>
+            </form>
+            <br>
+            <ul class="promocode-list">
+                {% for promocode, discount in promo_codes %}
+                <li>Промокод: {{ promocode }}. Размер скидки: {{ discount }}%</li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="admin-section">
+            <h2>Товары</h2>
+            <br>
+            <form action="orders.html" method="post" enctype="multipart/form-data">
+                <input type="text" name="product_name" placeholder="Название товара" required>
+                <textarea name="product_description" placeholder="Описание товара" required></textarea>
+                <input type="number" name="product_price" placeholder="Цена товара" required>
+                <input type="file" name="product_image" required>
+                <button type="submit">Добавить товар</button>
+            </form>
+            <ul class="product-list">
+            </ul>
+        </div>
+        <div class="admin-section">
+            <h2>Курьеры</h2>
+            <br>
+            <form action="{{ url_for('change_courier_status') }}" method="post">
+                <input type="text" name="courier_username" placeholder="Имя пользователя" required>
+                <input type="password" name="courier_password" placeholder="Пароль" required>
+                <button type="submit">Создать учетную запись курьера</button>
+            </form>
+            <ul class="courier-list">
+            </ul>
+        </div>
+        <div class="admin-section">
+            <h2>Выдать админ-статус</h2>
+            <br>
+            <form action="{{ url_for('change_admin_status') }}" method="post">
+                <input type="text" name="username" placeholder="Имя пользователя" required>
+                <button type="submit" name="action" value="grant">Выдать админ-статус</button>
+                <button type="submit" name="action" value="revoke">Снять админ-статус</button>
+            </form>
+            {% if admin_status %}
+                <p>{{ admin_status }}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

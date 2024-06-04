@@ -28,30 +28,13 @@ body {
         display: flex;
         justify-content: space-between;
         align-items: center;
-
-        .top-header-links {
-            list-style: none;
-            display: flex;
-
-            li {
-                margin: 0 1rem;
-
-                a {
-                    color: $accent-color;
-                    text-decoration: none;
-                    font-size: 0.9rem;
-                    font-weight: 500;
-
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
-            }
         }
 
         .top-header-contact {
             display: flex;
             align-items: center;
+            justify-content: center;
+            margin-left: 28rem;
 
             span {
                 margin-left: 1rem;
@@ -60,11 +43,11 @@ body {
                 font-weight: 500;
             }
             .every {
-                color: magenta;
+                color: #F85E00;
             }
         }
     }
-}
+
 
 .navbar {
     background: none;
