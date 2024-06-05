@@ -1,19 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/panel.css') }}">
-    <title>Меню курьера.</title>
-</head>
-<body>
-    <div class="admin-container">
-        <h1>Ваши заказы.</h1>
-        <div class="admin-section">
-            <ul id="order-list">
-                <!-- Orders will be dynamically inserted here -->
-            </ul>
-        </div>
+<link rel="stylesheet" href="{{ url_for('static', filename='style/panel.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style/cart.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style/cour.css') }}">
+<title>Меню курьера.</title>
+{% extends "output.html" %}
+{% block content %}
+<div class="admin-container">
+    <h1>Ваши заказы</h1>
+    <div class="admin-section">
+        <table id="order-list">
+            <thead>
+                <tr>
+                    <th>Номер заказа  </th>
+                    <th>Текущий статус  </th>
+                    <th>Изменить статус  </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order[1] }}</td>
+                    <td>{{ order[2] }}</td>
+                    <td>
+                        <br>
+                        <form method="POST" action="{{ url_for('courier_panel') }}">
+                            <input type="hidden" name="order_id" value="{{ order[0] }}">
+                            <select name="status">
+                                <option value="Готовится" {% if order[2] == 'Готовится' %}selected{% endif %}>Готовится</option>
+                                <option value="Готов, курьер спешит за ним" {% if order[2] == 'Готов, курьер спешит за ним' %}selected{% endif %}>Готов, курьер спешит за ним</option>
+                                <option value="Курьер забрал заказ и направляется к вам" {% if order[2] == 'Курьер забрал заказ и направляется к вам' %}selected{% endif %}>Курьер забрал заказ и направляется к вам</option>
+                                <option value="Заказ доставлен" {% if order[2] == 'Заказ доставлен' %}selected{% endif %}>Заказ доставлен</option>
+                            </select>
+                            <button type="submit">Изменить статус</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-</body>
+</div>
+{% endblock %}
 </html>

@@ -38,8 +38,10 @@
             <br>
             <ul class="promocode-list">
                 {% for promocode, discount in promo_codes %}
-                <li>Промокод: {{ promocode }}. Размер скидки: {{ discount }}%</li>
-            {% endfor %}
+                    {% if promocode != None %}
+                        <li>Промокод: {{ promocode }}. Размер скидки: {{ discount }}%</li>
+                    {% endif %}
+                {% endfor %}
             </ul>
         </div>
         <div class="admin-section">
@@ -73,6 +75,16 @@
                 <input type="text" name="username" placeholder="Имя пользователя" required>
                 <button type="submit" name="action" value="grant">Выдать админ-статус</button>
                 <button type="submit" name="action" value="revoke">Снять админ-статус</button>
+            </form>
+            {% if admin_status %}
+                <p>{{ admin_status }}</p>
+            {% endif %}
+        </div>
+        <div class="admin-section">
+            <h2>Создать тестовый заказ</h2>
+            <br>
+            <form action="{{ url_for('create_test_order') }}" method="post">
+                <button type="submit">Создать тестовый заказ</button>
             </form>
             {% if admin_status %}
                 <p>{{ admin_status }}</p>

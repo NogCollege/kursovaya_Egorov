@@ -3,6 +3,10 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 import logging
+import random
+import string
+import threading
+import time
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -11,6 +15,15 @@ app.config['SECRET_KEY'] = '36735ef9620b0bee5358d7e006c1f5b982c945314c10ed88'
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
+
+statuses = [
+    "Готовится",
+    "Готов, курьер спешит за ним",
+    "Курьер забрал заказ и направляется к вам",
+    "Заказ доставлен"
+]
+
 
 DATABASE = 'instance/database.db'
 
@@ -33,6 +46,10 @@ def init_db():
                             id INTEGER PRIMARY KEY AUTOINCREMENT,
                             name TEXT NOT NULL,
                             desc TEXT NOT NULL)''')
+        cursor.execute('''CREATE TABLE IF NOT EXISTS test_orders (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            order_number TEXT NOT NULL,
+                            status TEXT NOT NULL)''')
 
 init_db()
 
@@ -165,7 +182,23 @@ def courier_required(f):
 @app.route('/courier', methods=['GET', 'POST'])
 @courier_required
 def courier_panel():
-    return render_template('couriers.html', current_user=current_user, message=None)
+    if request.method == 'POST':
+        order_id = request.form['order_id']
+        new_status = request.form['status']
+        with sqlite3.connect(DATABASE) as conn:
+            cursor = conn.cursor()
+            cursor.execute('''UPDATE test_orders SET status = ? WHERE id = ?''', (new_status, order_id))
+            conn.commit()
+            flash('Статус заказа успешно обновлен.', 'success')
+        return redirect(url_for('courier_panel')) 
+
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute('SELECT id, order_number, status FROM test_orders')
+        orders = cursor.fetchall()
+    
+    return render_template('couriers.html', current_user=current_user, orders=orders)
+
 
 @app.route('/change_courier_status', methods=['POST'])
 @admin_required
@@ -226,6 +259,44 @@ def create_delete_sale():
             else:
                 flash("Акция успешно удалена.", 'success')
     return redirect(url_for('admin_panel'))
+
+def generate_order_number():
+    return ''.join(random.choices(string.ascii_letters + string.digits, k=6))
+
+@app.route('/create_test_order', methods=['POST'])
+@admin_required
+def create_test_order():
+    order_number = generate_order_number()
+    status = "Готовится"
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute('''INSERT INTO test_orders (order_number, status) VALUES (?, ?)''', (order_number, status))
+        conn.commit()
+        flash(f'Тестовый заказ с номером {order_number} успешно создан.', 'success')
+    return redirect(url_for('admin_panel'))
+
+
+def update_order_statuses():
+    while True:
+        with sqlite3.connect(DATABASE) as conn:
+            cursor = conn.cursor()
+            cursor.execute('SELECT id, status FROM test_orders')
+            orders = cursor.fetchall()
+            for order_id, current_status in orders:
+                next_status = get_next_status(current_status)
+                cursor.execute('UPDATE test_orders SET status = ? WHERE id = ?', (next_status, order_id))
+            conn.commit()
+        time.sleep(10) 
+
+def get_next_status(current_status):
+    try:
+        current_index = statuses.index(current_status)
+        return statuses[min(current_index + 1, len(statuses) - 1)]
+    except ValueError:
+        return statuses[0]
+
+status_update_thread = threading.Thread(target=update_order_statuses, daemon=True)
+status_update_thread.start()
 
 if __name__ == '__main__':
     app.run(debug=True)
