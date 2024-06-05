@@ -24,7 +24,6 @@ statuses = [
     "Заказ доставлен"
 ]
 
-
 DATABASE = 'instance/database.db'
 
 def init_db():
@@ -160,13 +159,20 @@ def change_admin_status():
     new_status = 'yes' if action == 'grant' else 'no'
     with sqlite3.connect(DATABASE) as conn:
         cursor = conn.cursor()
-        cursor.execute('UPDATE users SET is_admin = ? WHERE username = ?', (new_status, username))
-        if cursor.rowcount == 0:
+        cursor.execute('SELECT is_admin FROM users WHERE username = ?', (username,))
+        user = cursor.fetchone()
+        if not user:
             flash(f"Пользователь {username} не найден.", 'error')
         else:
-            conn.commit()
-            action_text = 'granted' if action == 'grant' else 'revoked'
-            flash(f"Админ-панель {action_text} для пользователя {username}.", 'success')
+            current_status = user[0]
+            if current_status == 'yes' and action == 'grant':
+                flash(f"Пользователь {username} уже имеет админ-статус.", 'error')
+            else:
+                cursor.execute('UPDATE users SET is_admin = ? WHERE username = ?', (new_status, username))
+                conn.commit()
+                action_text = 'выдан' if action == 'grant' else 'забрана'
+                flash(f"Админ-панель {action_text} для пользователя {username}.", 'success')
+
     return redirect(url_for('admin_panel'))
 
 def courier_required(f):

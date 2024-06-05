@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Open Sans", sans-serif;
   background-color: #f4f4f4;
   margin: 0;
   padding: 0;
@@ -44,12 +44,66 @@ form {
   flex-direction: column;
   gap: 10px;
 }
+.file-input-label {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
 
+.file-input-label:hover {
+  border-color: #999;
+}
+
+.file-input-label svg {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  fill: currentColor;
+}
+
+.file-input-label span {
+  font-size: 14px;
+}
+
+input[type="file"]:valid + .file-input-label span::after {
+  content: attr(data-file-name);
+  margin-left: 8px;
+  font-style: italic;
+}
+
+select {
+  appearance: none;
+  background-color: #f7f7f7;
+  border: 1px solid #ccc; 
+  padding: 10px; 
+  font-size: 16px; 
+  width: 100%; 
+  border-radius: 5px;
+}
+
+select option {
+  background-color: #fff;
+  color: #333; 
+}
+
+
+select option:hover {
+  background-color: #f0f0f0;
+}
+
+textarea {
+  resize: none;
+}
 input, textarea, button {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
+  font-family: "Open Sans", sans-serif;
 }
 
 button {
@@ -58,6 +112,8 @@ button {
   border: none;
   cursor: pointer;
   transition: background-color 0.3s;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
 }
 
 button:hover {
