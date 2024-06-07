@@ -25,7 +25,7 @@
                     <td class="status">{{ order[2] }}</td>
                     <td>
                         <br>
-                        <form method="POST" action="{{ url_for('courier_panel') }}">
+                        <form method="POST" action="{{ url_for('courier_routes.courier_panel') }}">
                             <input type="hidden" name="order_id" value="{{ order[0] }}">
                             <select name="status">
                                 <option value="Готовится" {% if order[2] == 'Готовится' %}selected{% endif %}>Готовится</option>

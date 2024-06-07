@@ -16,7 +16,7 @@
         <div class="admin-section">
             <h2>Акции</h2>
             <br>
-            <form action="{{ url_for('create_delete_sale') }}" method="post">
+            <form action="{{ url_for('admin_routes.create_delete_sale') }}" method="post">
                 <input type="text" name="promotion_name" placeholder="Название акции" required>
                 <textarea name="promotion_description" placeholder="Описание акции" required></textarea>
                 <button type="submit" name="action3" value="create">Добавить акцию</button>
@@ -31,7 +31,7 @@
         <div class="admin-section">
             <h2>Промокоды</h2>
             <br>
-            <form action="{{ url_for('create_delete_promocode') }}" method="post">
+            <form action="{{ url_for('admin_routes.create_delete_promocode') }}" method="post">
                 <input type="text" name="promocode" placeholder="Промокод" required>
                 <input type="number" name="discount" placeholder="Скидка (%)" required>
                 <button type="submit" name="action2" value="create">Добавить промокод</button>
@@ -78,7 +78,7 @@
         <div class="admin-section">
             <h2>Курьеры</h2>
             <br>
-            <form action="{{ url_for('change_courier_status') }}" method="post">
+            <form action="{{ url_for('admin_routes.change_courier_status') }}" method="post">
                 <input type="text" name="courier_username" placeholder="Имя пользователя" required>
                 <input type="password" name="courier_password" placeholder="Пароль" required>
                 <button type="submit">Создать учетную запись курьера</button>
@@ -89,7 +89,7 @@
         <div class="admin-section">
             <h2>Выдать админ-статус</h2>
             <br>
-            <form action="{{ url_for('change_admin_status') }}" method="post">
+            <form action="{{ url_for('admin_routes.change_admin_status') }}" method="post">
                 <input type="text" name="username" placeholder="Имя пользователя" required>
                 <button type="submit" name="action" value="grant">Выдать админ-статус</button>
                 <button type="submit" name="action" value="revoke">Снять админ-статус</button>
@@ -101,7 +101,7 @@
         <div class="admin-section">
             <h2>Создать тестовый заказ</h2>
             <br>
-            <form action="{{ url_for('create_test_order') }}" method="post">
+            <form action="{{ url_for('admin_routes.create_test_order') }}" method="post">
                 <button type="submit">Создать тестовый заказ</button>
             </form>
             {% if admin_status %}

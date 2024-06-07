@@ -26,16 +26,16 @@
                 <a href="#" class="logo">КебабХаус</a>
                 <ul class="nav-links">
                     <li><a href="#home">Главная</a></li>
-                    <li><a href="{{url_for('courier_panel')}}">Для курьеров</a></li>
+                    <li><a href="{{url_for('courier_routes.courier_panel')}}">Для курьеров</a></li>
                     <li><a href="#menu">Меню</a></li>
                 </ul>
                 <div class="auth-cart">
                     {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('logout') }}" class="auth-btn">Выйти</a>
+                        <a href="{{ url_for('auth_routes.logout') }}" class="auth-btn">Выйти</a>
                     {% else %}
-                        <a href="{{ url_for('login') }}" class="auth-btn">Войти</a>
+                        <a href="{{ url_for('auth_routes.login') }}" class="auth-btn">Войти</a>
                     {% endif %}
-                    <a href="{{ url_for('cart') }}" class="cart-btn">Корзина</a>
+                    <a href="{{ url_for('main_routes.cart') }}" class="cart-btn">Корзина</a>
                 </div>
             </div>
         </nav>
