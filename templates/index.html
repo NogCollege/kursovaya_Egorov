@@ -53,17 +53,67 @@
     <section id="menu" class="menu">
         <div class="container">
             <h2>Наше Меню</h2>
-            <div class="menu-items">
-                <h1>СКОРО БУДЕТ</h1>
+            <div class="category-buttons">
+                <button onclick="filterProducts('all')">Все</button>
+                <button onclick="filterProducts('Горячие блюда')">Горячие блюда</button>
+                <button onclick="filterProducts('Завтраки')">Завтраки</button>
+                <button onclick="filterProducts('Вторые блюда')">Вторые блюда</button>
+                <button onclick="filterProducts('ХАЛЯЛ')">Халяль</button>
+                <button onclick="filterProducts('Салаты')">Салаты</button>
+                <button onclick="filterProducts('Напитки')">Напитки</button>
+            </div>
+            <br>
+            <div class="menu-categories">
+                <ul id="product-list">
+                    {% for product in products %}
+                    <li class="product" data-category="{{ product[2] }}">
+                        <h3>{{ product[0] }}</h3>
+                        <p>Цена: {{ product[1] }} руб.</p>
+                        <button class="add-to-cart-btn">Добавить в корзину</button>
+                    </li>
+                    {% endfor %}
             </div>
         </div>
     </section>
+    <hr>
+    <script src="../static/scripts/menu.js"></script>
     <section id="about" class="about">
         <div class="container">
             <h2>О нас</h2>
-            <p>Мы стремимся доставлять лучшие блюда в Ногинске.</p>
+            <p>"КебабХаус" - это уютное заведение быстрого питания, которое было создано в сердце Ногинска с одной целью - предложить своим клиентам вкусные и качественные блюда по доступным ценам. Наше меню вдохновлено богатыми традициями восточной кухни, а также современными трендами в области здорового питания. <br><br>
+                Мы гордимся нашими источниками высококачественных ингредиентов и заботимся о каждой детали в процессе приготовления блюд. Наша команда опытных поваров старается удивить вас разнообразием вкусов и оригинальными сочетаниями ингредиентов в каждом блюде. <br><br>
+                Наше заведение предлагает широкий ассортимент блюд, включая классические кебабы, разнообразные соусы, свежие салаты, аппетитные гарниры и освежающие напитки. Мы стремимся удовлетворить даже самых взыскательных гурманов и создать неповторимый опыт для каждого нашего гостя. <br><br>
+                Будьте уверены, что каждое блюдо в "КебабХаус" приготовлено с любовью и заботой о вашем вкусе. Приходите к нам и наслаждайтесь атмосферой теплого приема и настоящего восточного гостеприимства! <br></p>
         </div>
     </section>
+    <hr>
+    br
+    <section id="map2" class="map2">
+        <div class="container">
+            <h2>Где мы находимся?</h2>
+            <p>Прямо вот здесь. =)</p>
+        </div>
+        <br>
+        <div id="map" style="width: 100%; height: 50vh;"></div>
+    </section>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+    <script>
+        ymaps.ready(init);
+
+        function init() {
+            var myMap = new ymaps.Map('map', {
+                center: [55.854476, 38.441866], 
+                zoom: 10 
+            });
+
+            var myPlacemark = new ymaps.Placemark([55.854476, 38.441866], {
+                hintContent: 'Ногинск',
+                balloonContent: 'Город Ногинск, Московская область, Россия'
+            });
+
+            myMap.geoObjects.add(myPlacemark);
+        }
+    </script>
     <footer>
         <div class="container footer-container">
             <div class="footer-column">

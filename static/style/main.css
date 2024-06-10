@@ -138,6 +138,13 @@ body {
   background-color: #ff7c2c;
 }
 
+hr {
+  border: none;
+  height: 0.5px;
+  background-color: #F85E00;
+  border-radius: 80px;
+}
+
 .menu, .about, .contact {
   padding: 4rem 0;
 }
@@ -152,6 +159,73 @@ body {
 .menu .container p, .about .container p, .contact .container p {
   font-size: 1rem;
   margin-bottom: 1rem;
+}
+
+.menu {
+  padding: 50px 0;
+}
+
+.menu-categories {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 140px;
+}
+
+.menu-categories ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: space-between;
+  margin: 0;
+}
+
+.category-buttons button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #F85E00;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.category-buttons button:hover {
+  background-color: #c54b00;
+}
+
+#map2 {
+  text-align: center;
+}
+
+.menu-categories li {
+  width: 300px; 
+  margin-right: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.menu-categories h3 {
+  margin-top: 0;
+}
+
+.menu-categories p {
+  margin: 5px 0;
+}
+
+.add-to-cart-btn {
+  background-color: #F85E00;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #c54b00;
 }
 
 footer {

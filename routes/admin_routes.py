@@ -70,6 +70,28 @@ def create_delete_promocode():
                 flash(f"Промокод {promocode} успешно удален.", 'success')
     return redirect(url_for('admin_routes.admin_panel'))
 
+@admin_routes.route('/create_product', methods=['POST'])
+@admin_required
+def create_product():
+    name = request.form['product_name']
+    price = request.form['product_price']
+    category = request.form['category']  
+    action = request.form['action4']
+    with sqlite3.connect(Config.DATABASE) as conn:
+        cursor = conn.cursor()
+        if action == 'create':
+            cursor.execute('''INSERT INTO products (name, price, category) VALUES (?, ?, ?)''', (name, price, category))
+            conn.commit()
+            flash(f"Товар успешно добавлен.", 'success')
+        else:
+            cursor.execute('''DELETE FROM products WHERE name = ? AND price = ? AND category = ?''', (name, price, category))
+            conn.commit()
+            if cursor.rowcount == 0:
+                flash(f"Данный товар не найден.", 'error')
+            else:
+                flash(f"Товар успешно удален", 'success')
+        return redirect(url_for('admin_routes.admin_panel'))
+    
 @admin_routes.route('/create_delete_sale', methods=['POST'])
 @admin_required
 def create_delete_sale():

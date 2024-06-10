@@ -49,12 +49,11 @@
         <div class="admin-section">
             <h2>Товары</h2>
             <br>
-            <form action="orders.html" method="post" enctype="multipart/form-data">
+            <form action="{{ url_for('admin_routes.create_product') }}" method="post" enctype="multipart/form-data">
                 <input type="text" name="product_name" placeholder="Название товара" required>
-                <textarea name="product_description" placeholder="Описание товара" required></textarea>
                 <input type="number" name="product_price" placeholder="Цена товара" required>
-                <label for="status">Категория товара</label>
-                    <select name="status">
+                <label for="category">Категория товара</label>
+                    <select name="category">
                       <option value="Горячие блюда">Горячие блюда</option>
                       <option value="Завтраки">Завтраки</option>
                       <option value="Вторые блюда">Вторые блюда</option>
@@ -70,7 +69,8 @@
                     <span>Выберите изображение продукта</span>
                   </label>
                   <input type="file" id="product_image" name="product_image" required accept="image/png, image/jpeg" style="display: none;">
-                <button type="submit">Добавить товар</button>
+                <button type="submit" name="action4" value="create">Добавить товар</button>
+                <button type="submit" name="action4" value="delete">Удалить товар</button>
             </form>
             <ul class="product-list">
             </ul>

@@ -6,6 +6,7 @@ from config import Config
 import sqlite3
 from routes import auth_routes
 
+
 @auth_routes.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -28,14 +29,19 @@ def register():
         try:
             with sqlite3.connect(Config.DATABASE) as conn:
                 cursor = conn.cursor()
-                cursor.execute('''INSERT INTO users (username, password, is_admin, is_courier) VALUES (?, ?, ?, ?)''', (username, hashed_password, "no", "no"))
+                cursor.execute('''INSERT INTO users (username, password, is_admin, is_courier) VALUES (?, ?, ?, ?)''', 
+                               (username, hashed_password, "no", "no"))
                 conn.commit()
-            flash('Регистрация завершена. Теперь вы можете авторизоваться.', 'success')
-            return redirect(url_for('auth_routes.login'))
+                cursor.execute('SELECT id FROM users WHERE username = ?', (username,))
+                user_id = cursor.fetchone()[0]
+                new_user = User(id=user_id, username=username, password=hashed_password, is_admin=False, is_courier=False)
+                login_user(new_user)
+                return redirect(url_for('main_routes.index'))
         except sqlite3.IntegrityError:
-            flash('Пользователь с таким именем уже существует', 'error')
+            flash('Пользователь с таким именем уже существует.', 'error')
             return redirect(url_for('auth_routes.register'))
     return render_template('register.html')
+
 
 @auth_routes.route('/logout')
 @login_required

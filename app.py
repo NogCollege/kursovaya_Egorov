@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, flash, redirect, url_for
 from flask_login import LoginManager
 from models import User, init_db
 from config import Config
@@ -16,6 +16,11 @@ login_manager.login_view = 'auth_routes.login'
 @login_manager.user_loader
 def load_user(user_id):
     return User.get(int(user_id))
+
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    flash('Для просмотра данной страницы вам нужно авторизоваться.', 'error')
+    return redirect(url_for('auth_routes.login'))
 
 app.register_blueprint(main_routes)
 app.register_blueprint(auth_routes)
