@@ -53,22 +53,22 @@
                 <input type="text" name="product_name" placeholder="Название товара" required>
                 <input type="number" name="product_price" placeholder="Цена товара" required>
                 <label for="category">Категория товара</label>
-                    <select name="category">
-                      <option value="Горячие блюда">Горячие блюда</option>
-                      <option value="Завтраки">Завтраки</option>
-                      <option value="Вторые блюда">Вторые блюда</option>
-                      <option value="ХАЛЯЛ">ХАЛЯЛ</option>
-                      <option value="Салаты">Салаты</option>
-                      <option value="Напитки">Напитки</option>
-                    </select>
+                <select name="category">
+                    <option value="Горячие блюда">Горячие блюда</option>
+                    <option value="Завтраки">Завтраки</option>
+                    <option value="Вторые блюда">Вторые блюда</option>
+                    <option value="ХАЛЯЛ">ХАЛЯЛ</option>
+                    <option value="Салаты">Салаты</option>
+                    <option value="Напитки">Напитки</option>
+                </select>
                 <label for="product_image" class="file-input-label">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                      <path d="M0 0h24v24H0z" fill="none"/>
-                      <path d="M15.5 13.59l-4.17-4.17L6 15.25V20h4.75l5.42-5.42zM18 4h-3.5l-2-2H7c-1.1 0-1.99.9-1.99 2L5 18c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H7V6h3.5l2 2H18v10z"/>
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M15.5 13.59l-4.17-4.17L6 15.25V20h4.75l5.42-5.42zM18 4h-3.5l-2-2H7c-1.1 0-1.99.9-1.99 2L5 18c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H7V6h3.5l2 2H18v10z"/>
                     </svg>
                     <span>Выберите изображение продукта</span>
-                  </label>
-                  <input type="file" id="product_image" name="product_image" required accept="image/png, image/jpeg" style="display: none;">
+                </label>
+                <input type="file" id="product_image" name="product_image" required accept="image/png, image/jpeg" style="display: none;">
                 <button type="submit" name="action4" value="create">Добавить товар</button>
                 <button type="submit" name="action4" value="delete">Удалить товар</button>
             </form>

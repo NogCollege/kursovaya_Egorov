@@ -67,9 +67,15 @@
                 <ul id="product-list">
                     {% for product in products %}
                     <li class="product" data-category="{{ product[2] }}">
+                        <img src="{{ url_for('static', filename='uploads/' + product[3]) }}">
                         <h3>{{ product[0] }}</h3>
                         <p>Цена: {{ product[1] }} руб.</p>
-                        <button class="add-to-cart-btn">Добавить в корзину</button>
+                        <form method="post" action="{{ url_for('main_routes.cart') }}">
+                            <input type="hidden" name="product_name" value="{{ product[0] }}">
+                            <input type="hidden" name="product_price" value="{{ product[1] }}">
+                            <input type="hidden" name="product_type" value="{{ product[2] }}">
+                            <button type="submit" class="add-to-cart-btn">Добавить в корзину</button>
+                        </form>
                     </li>
                     {% endfor %}
             </div>

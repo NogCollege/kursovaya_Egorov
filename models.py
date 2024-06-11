@@ -58,5 +58,6 @@ def init_db():
                             id INTEGER PRIMARY KEY AUTOINCREMENT,
                             name TEXT NOT NULL,
                             price TEXT NOT NULL,
+                            image TEXT,
                             category TEXT NOT NULL)''')
-
+        

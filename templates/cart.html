@@ -1,28 +1,47 @@
-<!DOCTYPE html>
-<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Корзина</title>
+<title>Корзина</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/cart.css') }}">
 </head>
-<body>
-    <header>
-    </header>
+{% extends "output.html" %}
+{% block content %}
     <div class="container">
         <h2>Корзина</h2>
+        <h1>Список товаров:</h1>
         <div class="cart-items">
+            {% for item in cart_items %}
+            <div class="cart-item">
+                <p>{{ item.name }}</p>
+                <p>{{ item.price }} руб.</p>
+            </div>
+            {% endfor %}
         </div>
         <div class="cart-summary">
-            <p>Итого: <span class="cart-total">0.00 руб.</span></p>
+            <div class="fet">
+                <form method="post" action="{{ url_for('main_routes.apply_promo') }}" class="check">
+                    <label for="phone">Номер телефона:</label>
+                    <input type="text" id="phone" name="phone" required>
+                    <label for="email">Почта:</label>
+                    <input type="email" id="email" name="email" required>
+                    <label for="promo_code">Промокод:</label>
+                    <input type="text" id="promo_code" name="promo_code">
+                    <button type="submit" class="checkout-btn">Применить промокод</button>
+                </form>
+            </div>
             <br>
-            <button class="checkout-btn">Оформить заказ</button>
+            <div class="jopa">
+                <form method="get" action="{{ url_for('main_routes.clear_cart') }}">
+                    <button type="submit" class="checkout-btn">Очистить корзину</button>
+                </form>
+                <br>
+                <form method="post" action="{{ url_for('main_routes.checkout') }}">
+                    <button type="submit" class="checkout-btn">Оформить заказ</button>
+                </form>
+            </div>
+            <br>
+            <p>Итого: <span class="cart-total">{{ total }} руб.</span></p>
         </div>
     </div>
-    <footer>
-    </footer>
-</body>
-</html>
+{% endblock %}

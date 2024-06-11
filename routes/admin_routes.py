@@ -1,9 +1,20 @@
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request, current_app
 from flask_login import login_required, current_user
 from werkzeug.security import generate_password_hash
+from werkzeug.utils import secure_filename
 import sqlite3
 from config import Config
+import random
+import string
 from routes import admin_routes
+import os
+
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def admin_required(f):
     @login_required
@@ -77,10 +88,19 @@ def create_product():
     price = request.form['product_price']
     category = request.form['category']  
     action = request.form['action4']
+
+    file = request.files.get('product_image')
+    filename = None
+
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+
     with sqlite3.connect(Config.DATABASE) as conn:
         cursor = conn.cursor()
         if action == 'create':
-            cursor.execute('''INSERT INTO products (name, price, category) VALUES (?, ?, ?)''', (name, price, category))
+            cursor.execute('''INSERT INTO products (name, price, category, image) VALUES (?, ?, ?, ?)''', (name, price, category, filename))
             conn.commit()
             flash(f"Товар успешно добавлен.", 'success')
         else:
@@ -125,6 +145,10 @@ def change_courier_status():
         conn.commit()
         flash('Аккаунт для курьера успешно создан.', 'success')
     return redirect(url_for('admin_routes.admin_panel'))
+
+def generate_order_number(length=4):
+    characters = string.ascii_uppercase + string.digits
+    return ''.join(random.choice(characters) for _ in range(length))
 
 @admin_routes.route('/create_test_order', methods=['POST'])
 @admin_required
