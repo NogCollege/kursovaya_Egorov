@@ -1,0 +1,151 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.admin-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.admin-section {
+  flex: 1;
+  min-width: 280px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.admin-section h2 {
+  margin-top: 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.file-input-label {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.file-input-label:hover {
+  border-color: #999;
+}
+
+.file-input-label svg {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  fill: currentColor;
+}
+
+.file-input-label span {
+  font-size: 14px;
+}
+
+input[type="file"]:valid + .file-input-label span::after {
+  content: attr(data-file-name);
+  margin-left: 8px;
+  font-style: italic;
+}
+
+select {
+  appearance: none;
+  background-color: #f7f7f7;
+  border: 1px solid #ccc; 
+  padding: 10px; 
+  font-size: 16px; 
+  width: 100%; 
+  border-radius: 5px;
+}
+
+select option {
+  background-color: #fff;
+  color: #333; 
+}
+
+
+select option:hover {
+  background-color: #f0f0f0;
+}
+
+textarea {
+  resize: none;
+}
+input, textarea, button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  font-family: "Open Sans", sans-serif;
+}
+
+button {
+  background-color: #F85E00;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+}
+
+button:hover {
+  background-color: #dd6215;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+ul li:last-child {
+  border-bottom: none;
+}
+
+.flash {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.flash.error {
+  background-color: #f2dede;
+  color: #a94442;
+}
+
+.flash.success {
+  background-color: #dff0d8;
+  color: #3c763d;
+}/*# sourceMappingURL=panel.css.map */

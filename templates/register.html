@@ -1,0 +1,26 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../static/images/logo.svg"/ sizes="32x32">
+</head>
+{% extends "output.html" %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style/cart.css') }}">
+<div class="container auth-container">
+    <h2>Регистрация</h2>
+    <br>
+    <form action="{{ url_for('auth_routes.register') }}" method="post" class="auth-form">
+        <label for="username">Имя пользователя</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Пароль</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit" class="auth-btn">Зарегистрироваться</button>
+    </form>
+    <br>
+    <p>Уже есть аккаунт? <a href="{{ url_for('auth_routes.login') }}">Войти</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,172 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доставка Еды в Ногинске</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/main.css') }}">
+    <link rel="shortcut icon" href="../static/images/logo.svg"/>
+</head>
+{% block content %}
+    <header>
+        <div class="top-header">
+            <div class="container">
+                <div class="top-header-contact">
+                    <span>+7 800 222-11-00</span>
+                    <span class="every">Круглосуточно</span>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar">
+            <br>
+            <br>
+            <div class="container">
+                <div class="logotype">
+                    <a href="#" class="logo">КебабХаус</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="{{url_for('courier_routes.courier_panel')}}">Для курьеров</a></li>
+                    <li><a href="#menu">Меню</a></li>
+                </ul>
+                <div class="auth-cart">
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('auth_routes.logout') }}" class="auth-btn">Выйти</a>
+                    {% else %}
+                        <a href="{{ url_for('auth_routes.login') }}" class="auth-btn">Войти</a>
+                    {% endif %}
+                    <a id="cart-link" href="{{ url_for('main_routes.cart') }}" class="cart-btn">Корзина</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <section id="home" class="banner">
+        <div class="overlay">
+            <div class="container">
+                <h1>Добро пожаловать в КебабХаус</h1>
+                <p>ХАЛЯЛ БЛЮДА НА ВАШ ВКУС</p>
+                <br>
+                <a href="#menu" class="cta-btn">Заказать сейчас</a>
+            </div>
+        </div>
+    </section>
+    <section id="menu" class="menu">
+        <div class="container">
+            <h2>Наше Меню</h2>
+            <div class="category-buttons">
+                <button onclick="filterProducts('all')">Все</button>
+                <button onclick="filterProducts('Горячие блюда')">Горячие блюда</button>
+                <button onclick="filterProducts('Завтраки')">Завтраки</button>
+                <button onclick="filterProducts('Вторые блюда')">Вторые блюда</button>
+                <button onclick="filterProducts('ХАЛЯЛ')">Халяль</button>
+                <button onclick="filterProducts('Салаты')">Салаты</button>
+                <button onclick="filterProducts('Напитки')">Напитки</button>
+            </div>
+            <br>
+            <div class="menu-categories">
+                <ul id="product-list">
+                    {% for product in products %}
+                    <li class="product" data-category="{{ product[2] }}">
+                        <img src="{{ url_for('static', filename='uploads/' + product[3]) }}"  width="200px">
+                        <h3>{{ product[0] }}</h3>
+                        <p>Цена: {{ product[1] }} руб.</p>
+                        <form method="post" action="{{ url_for('main_routes.cart') }}">
+                            <input type="hidden" name="product_name" value="{{ product[0] }}">
+                            <input type="hidden" name="product_price" value="{{ product[1] }}">
+                            <input type="hidden" name="product_type" value="{{ product[2] }}">
+                            <button type="submit" class="add-to-cart-btn">Добавить в корзину</button>
+                        </form>
+                    </li>
+                    {% endfor %}
+            </div>
+        </div>
+    </section>
+    <hr>
+    <section id="menu" class="menu">
+        <div class="container">
+            <h2>Акции</h2>
+            <div class="menu-categories">
+                <ul id="sales-list">
+                    {% for sale in sales %}
+                    <li class="sale" data-category="{{ sales[2] }}">
+                        <h3>{{ sale[0] }}</h3>
+                        <p>{{ sale[1] }}</p>
+                    </li>
+                    {% endfor %}
+            </div>
+        </div>
+    </section>
+    <hr>
+    <script src="../static/scripts/menu.js"></script>
+    <section id="about" class="about">
+        <div class="container">
+            <h2>О нас</h2>
+            <p>"КебабХаус" - это уютное заведение быстрого питания, которое было создано в сердце Ногинска с одной целью - предложить своим клиентам вкусные и качественные блюда по доступным ценам. Наше меню вдохновлено богатыми традициями восточной кухни, а также современными трендами в области здорового питания. <br><br>
+                Мы гордимся нашими источниками высококачественных ингредиентов и заботимся о каждой детали в процессе приготовления блюд. Наша команда опытных поваров старается удивить вас разнообразием вкусов и оригинальными сочетаниями ингредиентов в каждом блюде. <br><br>
+                Наше заведение предлагает широкий ассортимент блюд, включая классические кебабы, разнообразные соусы, свежие салаты, аппетитные гарниры и освежающие напитки. Мы стремимся удовлетворить даже самых взыскательных гурманов и создать неповторимый опыт для каждого нашего гостя. <br><br>
+                Будьте уверены, что каждое блюдо в "КебабХаус" приготовлено с любовью и заботой о вашем вкусе. Приходите к нам и наслаждайтесь атмосферой теплого приема и настоящего восточного гостеприимства! <br></p>
+        </div>
+    </section>
+    <hr>
+    br
+    <section id="map2" class="map2">
+        <div class="container">
+            <h2>Где мы находимся?</h2>
+            <p>Прямо вот здесь. =)</p>
+        </div>
+        <br>
+        <div id="map" style="width: 100%; height: 50vh;"></div>
+    </section>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+    <script>
+        ymaps.ready(init);
+
+        function init() {
+            var myMap = new ymaps.Map('map', {
+                center: [55.854476, 38.441866], 
+                zoom: 10 
+            });
+
+            var myPlacemark = new ymaps.Placemark([55.854476, 38.441866], {
+                hintContent: 'Ногинск',
+                balloonContent: 'Город Ногинск, Московская область, Россия'
+            });
+
+            myMap.geoObjects.add(myPlacemark);
+        }
+    </script>
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-column">
+                <h3>О нас</h3>
+                <ul>
+                    <li><a href="#about">Наша история</a></li>
+                    <li><a href="#team">Команда</a></li>
+                    <li><a href="#careers">Карьера</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Помощь</h3>
+                <ul>
+                    <li><a href="#faq">Частые вопросы</a></li>
+                    <li><a href="#support">Поддержка</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Следите за нами</h3>
+                <ul>
+                    <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+                    <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+                    <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="container">
+            <p>&copy; 2024 Доставка Еды Ногинск. Все права защищены.</p>
+        </div>
+    </footer>
+{% endblock %}
