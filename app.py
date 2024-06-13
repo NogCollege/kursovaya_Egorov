@@ -8,7 +8,10 @@ import threading
 
 app = Flask(__name__)
 app.config.from_object(Config)
-
+app.register_blueprint(main_routes)
+app.register_blueprint(auth_routes)
+app.register_blueprint(admin_routes)
+app.register_blueprint(courier_routes)
 
 
 login_manager = LoginManager()
@@ -23,11 +26,6 @@ def load_user(user_id):
 def unauthorized_callback():
     flash('Для просмотра данной страницы вам нужно авторизоваться.', 'error')
     return redirect(url_for('auth_routes.login'))
-
-app.register_blueprint(main_routes)
-app.register_blueprint(auth_routes)
-app.register_blueprint(admin_routes)
-app.register_blueprint(courier_routes)
 
 init_db()
 

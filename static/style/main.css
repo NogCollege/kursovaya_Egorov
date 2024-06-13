@@ -140,9 +140,8 @@ body {
 
 hr {
   border: none;
-  height: 0.5px;
-  background-color: #F85E00;
-  border-radius: 80px;
+  height: 0.2px;
+  background-color: #e46516;
 }
 
 .menu, .about, .contact {

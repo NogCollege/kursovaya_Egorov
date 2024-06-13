@@ -49,6 +49,7 @@ def init_db():
                             id INTEGER PRIMARY KEY AUTOINCREMENT,
                             name TEXT NOT NULL,
                             desc TEXT NOT NULL)''')
+        
         cursor.execute('''CREATE TABLE IF NOT EXISTS test_orders (
                             id INTEGER PRIMARY KEY AUTOINCREMENT,
                             order_number TEXT NOT NULL,
@@ -60,4 +61,13 @@ def init_db():
                             price TEXT NOT NULL,
                             image TEXT,
                             category TEXT NOT NULL)''')
+                
+        cursor.execute('''CREATE TABLE IF NOT EXISTS order_items (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            order_id TEXT NOT NULL,
+                            name TEXT,
+                            price TEXT,
+                            quantity INTEGER DEFAULT 1)''')
+        
+
         

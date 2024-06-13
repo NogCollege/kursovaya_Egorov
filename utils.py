@@ -1,11 +1,6 @@
-import random
-import string
 import sqlite3
 from config import Config
 import time
-
-def generate_order_number():
-    return ''.join(random.choices(string.ascii_letters + string.digits, k=6))
 
 def get_next_status(current_status):
     try:
@@ -24,4 +19,4 @@ def update_order_statuses():
                 next_status = get_next_status(current_status)
                 cursor.execute('UPDATE test_orders SET status = ? WHERE id = ?', (next_status, order_id))
             conn.commit()
-        time.sleep(10) 
+        time.sleep(30) 

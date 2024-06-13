@@ -92,6 +92,13 @@ body {
   background-color: #ff7c2c;
 }
 
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
 .cart-summary {
   text-align: right;
   font-size: 1.2rem;
@@ -111,6 +118,20 @@ body {
 }
 .flash-messages {
   margin: 20px 0;
+}
+
+.item-quantity {
+  display: flex;
+  align-items: center;
+}
+
+.item-quantity form {
+  display: flex;
+  align-items: center;
+}
+
+.item-quantity label {
+  margin-right: 10px;
 }
 
 .flash-message {

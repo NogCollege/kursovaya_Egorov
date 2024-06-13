@@ -1,9 +1,10 @@
 <head>
-<title>Корзина</title>
+    <title>Корзина</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/cart.css') }}">
+    <link rel="shortcut icon" href="../static/images/logo.svg" sizes="32x32">
 </head>
 {% extends "output.html" %}
 {% block content %}
@@ -15,33 +16,53 @@
             <div class="cart-item">
                 <p>{{ item.name }}</p>
                 <p>{{ item.price }} руб.</p>
+                <form method="post" action="{{ url_for('main_routes.update_quantity', item_name=item.name) }}">
+                    <label for="quantity">Количество:</label>
+                    <select name="quantity" onchange="this.form.submit()">
+                        {% for i in range(1, 11) %}
+                            <option value="{{ i }}" {% if item.quantity == i %}selected{% endif %}>{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
             </div>
             {% endfor %}
         </div>
         <div class="cart-summary">
             <div class="fet">
                 <form method="post" action="{{ url_for('main_routes.apply_promo') }}" class="check">
-                    <label for="phone">Номер телефона:</label>
-                    <input type="text" id="phone" name="phone" required>
-                    <label for="email">Почта:</label>
-                    <input type="email" id="email" name="email" required>
-                    <label for="promo_code">Промокод:</label>
+                    <label for="promo_code" style="text-align: center;">Промокод:</label>
                     <input type="text" id="promo_code" name="promo_code">
                     <button type="submit" class="checkout-btn">Применить промокод</button>
                 </form>
             </div>
             <br>
-            <div class="jopa">
-                <form method="get" action="{{ url_for('main_routes.clear_cart') }}">
-                    <button type="submit" class="checkout-btn">Очистить корзину</button>
-                </form>
-                <br>
+            <div class="order">
                 <form method="post" action="{{ url_for('main_routes.checkout') }}">
+                    <label for="phone" style="text-align: center;">Номер телефона:</label>
+                    <input type="text" id="phone" name="phone" required>
+                    <label for="email" style="text-align: center;">Почта:</label>
+                    <input type="email" id="email" name="email" required>
+                    <label for="delivery_option" style="text-align: center;">Способ получения:</label>
+                    <select id="delivery_option" name="delivery_option" onchange="toggleAddressField()">
+                        <option value="Pickup">Самовывоз</option>
+                        <option value="Delivery">Доставка</option>
+                    </select>
+                    <div id="address_field" style="display: none;">
+                        <label for="address" style="text-align: center;">Адрес:</label>
+                        <input type="text" id="address" name="address">
+                    </div>
                     <button type="submit" class="checkout-btn">Оформить заказ</button>
                 </form>
             </div>
             <br>
             <p>Итого: <span class="cart-total">{{ total }} руб.</span></p>
         </div>
+        <div class="jopa">
+            <form method="get" action="{{ url_for('main_routes.clear_cart') }}">
+                <button type="submit" class="checkout-btn">Очистить корзину</button>
+            </form>
+            <br>
+        </div>
     </div>
+    <script src="../static/scripts/cart.js"></script>
 {% endblock %}

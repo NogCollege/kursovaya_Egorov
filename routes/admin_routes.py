@@ -9,9 +9,7 @@ import string
 from routes import admin_routes
 import os
 
-
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -79,6 +77,7 @@ def create_delete_promocode():
                 flash(f"Промокод {promocode} не найден.", 'error')
             else:
                 flash(f"Промокод {promocode} успешно удален.", 'success')
+
     return redirect(url_for('admin_routes.admin_panel'))
 
 @admin_routes.route('/create_product', methods=['POST'])
@@ -88,7 +87,6 @@ def create_product():
     price = request.form['product_price']
     category = request.form['category']  
     action = request.form['action4']
-
     file = request.files.get('product_image')
     filename = None
 
@@ -110,6 +108,7 @@ def create_product():
                 flash(f"Данный товар не найден.", 'error')
             else:
                 flash(f"Товар успешно удален", 'success')
+
         return redirect(url_for('admin_routes.admin_panel'))
     
 @admin_routes.route('/create_delete_sale', methods=['POST'])
@@ -118,6 +117,7 @@ def create_delete_sale():
     promotion = request.form['promotion_name']
     description = request.form['promotion_description']
     action = request.form['action3']
+
     with sqlite3.connect(Config.DATABASE) as conn:
         cursor = conn.cursor() 
         if action == 'create':
@@ -131,6 +131,7 @@ def create_delete_sale():
                 flash("Акция не найдена.", 'error')
             else:
                 flash("Акция успешно удалена.", 'success')
+
     return redirect(url_for('admin_routes.admin_panel'))
 
 @admin_routes.route('/change_courier_status', methods=['POST'])
@@ -139,14 +140,16 @@ def change_courier_status():
     courier_username = request.form['courier_username']
     courier_password = request.form['courier_password']
     hashed_password = generate_password_hash(courier_password, method='pbkdf2:sha256')
+
     with sqlite3.connect(Config.DATABASE) as conn:
         cursor = conn.cursor()
         cursor.execute('''INSERT INTO users (username, password, is_admin, is_courier) VALUES (?, ?, ?, ?)''', (courier_username, hashed_password, "no", "yes"))
         conn.commit()
         flash('Аккаунт для курьера успешно создан.', 'success')
+
     return redirect(url_for('admin_routes.admin_panel'))
 
-def generate_order_number(length=4):
+def generate_order_number(length=6):
     characters = string.ascii_uppercase + string.digits
     return ''.join(random.choice(characters) for _ in range(length))
 
@@ -155,9 +158,11 @@ def generate_order_number(length=4):
 def create_test_order():
     order_number = generate_order_number()
     status = "Готовится"
+    
     with sqlite3.connect(Config.DATABASE) as conn:
         cursor = conn.cursor()
         cursor.execute('''INSERT INTO test_orders (order_number, status) VALUES (?, ?)''', (order_number, status))
         conn.commit()
         flash(f'Тестовый заказ с номером {order_number} успешно создан.', 'success')
+
     return redirect(url_for('admin_routes.admin_panel'))
