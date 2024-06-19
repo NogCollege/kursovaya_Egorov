@@ -135,7 +135,7 @@ body {
   text-decoration: none;
 }
 .banner .cta-btn:hover {
-  background-color: #ff7c2c;
+  background-color: #c54b00;
 }
 
 hr {
@@ -179,6 +179,12 @@ hr {
   margin: 0;
 }
 
+.menu-categories img {
+  max-width: 100%;
+  height: auto; 
+  margin-bottom: 10px;
+}
+
 .category-buttons button {
   padding: 10px 20px;
   margin-right: 10px;
@@ -187,6 +193,7 @@ hr {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .category-buttons button:hover {
@@ -206,6 +213,12 @@ hr {
   border-radius: 5px;
 }
 
+.product img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
 .menu-categories h3 {
   margin-top: 0;
 }
@@ -221,6 +234,7 @@ hr {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  width: 100%;
 }
 
 .add-to-cart-btn:hover {
@@ -266,4 +280,11 @@ footer .footer-container .footer-column ul li a:hover {
 footer p {
   font-size: 1rem;
   font-weight: 500;
+}
+.category-buttons button, .add-to-cart-btn, .auth-btn, .cart-btn, .cta-btn, .navbar .nav-links li a {
+  transition: background-color 0.3s ease;
+}
+
+.category-buttons button:hover, .add-to-cart-btn:hover, .auth-btn:hover, .cart-btn:hover {
+  background-color: #c54b00;
 }/*# sourceMappingURL=main.css.map */

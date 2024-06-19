@@ -33,4 +33,4 @@ status_update_thread = threading.Thread(target=update_order_statuses, daemon=Tru
 status_update_thread.start()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

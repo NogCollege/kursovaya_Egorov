@@ -29,7 +29,7 @@ def send_email(to_email, subject, message):
         server.quit()
         print("Сообщение отправлено успешно")
     except Exception as e:
-        print(f"Сообщение не отправилено: {e}")
+        print(f"Сообщение не отправелено: {e}")
 
 def get_cart_items():
     return session.get('cart', [])

@@ -68,7 +68,7 @@
                 <ul id="product-list">
                     {% for product in products %}
                     <li class="product" data-category="{{ product[2] }}">
-                        <img src="{{ url_for('static', filename='uploads/' + product[3]) }}">
+                        <img src="{{ url_for('static', filename='uploads/' + product[3]) }}"  width="200px" width="200px">
                         <br>
                         <h3>{{ product[0] }}</h3>
                         <p>Цена: {{ product[1] }} руб.</p>
@@ -161,9 +161,9 @@
             <div class="footer-column">
                 <h3>О нас</h3>
                 <ul>
-                    <li><a href="#">О нас</a></li>
-                    <li><a href="#">Наша команда</a></li>
-                    <li><a href="#">Стань одним из нас</a></li>
+                    <li><a href="#about">Наша история</a></li>
+                    <li><a href="#team">Команда</a></li>
+                    <li><a href="#careers">Карьера</a></li>
                 </ul>
             </div>
             <div class="footer-column">
